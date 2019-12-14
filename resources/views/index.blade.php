@@ -1,19 +1,23 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <mata charset="utf-8">
-        <title>paiza bbs</title>
-        <style>body {padding: 10px;}</style>
-    </head>
-    <body>
+@extends('layout')
+
+@section('content')
         <h1>paiza bbs</h1>
         <p>{{ $message }}</p>
+        @include('search')
+        <table class='table table-striped table-hover'>
         @foreach ($articles as $article)
-            <p>
+            <tr>
+              <td>
                 <a href='{{ route("article.show", ["id" =>  $article->id]) }}'>
                     {{ $article->content }}
                 </a>
-            </p>
+              </td>
+                    <td>{{ $article->user_name }}</td>
+            </tr>
         @endforeach
-    </body>
-</html>
+        </table>
+       
+        <div>
+           <a href={{ route('article.new') }} class='btn btn-outline-primary'>新規投稿</a>
+        </div>
+@endsection

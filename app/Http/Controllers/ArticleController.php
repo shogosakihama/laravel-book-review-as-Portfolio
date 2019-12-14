@@ -26,7 +26,12 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        $article = new Article();
+
+        $article->content = 'Hello BBS';
+        $article->user_name = 'paiza';
+        $article->save();
+        return redirect('/articles');
     }
 
     /**
@@ -82,8 +87,10 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy(Request $request, $id, Article $article)
     {
-        //
+        $article = Article::find($id);
+        $article ->delete();
+        return redirect('/articles');
     }
 }
