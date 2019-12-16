@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+  public function __construct()
+  {
+      $this->middleware('auth')->except(['index', 'show']);
+  }
     /**
      * Display a listing of the resource.
      *
@@ -46,9 +50,11 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
       $article = new Article();
+      $user = \Auth::user();
 
       $article->content = $request->content;
       $article->user_name = $request->user_name;
+      $article->user_id = $user->id;
       $article->save();
       return redirect()->route('article.show',['id'=>$article->id]);
     }
@@ -63,7 +69,13 @@ class ArticleController extends Controller
 {
     $message = 'This is your article ' . $id;
     $article = Article::find($id);
-    return view('show', ['message' => $message, 'article' => $article]);
+    $user = \Auth::user();
+    if($user) {
+       $login_user_id = $user->id;
+    } else {
+       $login_user_id ='';
+    }
+    return view('show', ['message' => $message, 'article' => $article, 'login_user_id' =>$login_user_id]);
 }
 
     /**
