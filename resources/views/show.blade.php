@@ -3,7 +3,9 @@
 @section('content')
         <h1>paiza bbs</h1>
         <p>{{ $message }}</p>
-        <p>{{ $article->content }}</p>
+        <img style= width:300px;float:left src= {{ $posts }} >
+        <p style=float:left>{{ $article->content }}</p>
+        <br>
         <p>{{ $article->user_name }}</p>
         <p>
             <a href={{ route('article.list') }} class='btn btn-outline-primary'>一覧に戻る</a>

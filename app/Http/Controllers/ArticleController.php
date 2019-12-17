@@ -67,6 +67,15 @@ class ArticleController extends Controller
      */
     public function show(Request $request, $id, Article $article)
 {
+    $data = "https://www.googleapis.com/books/v1/volumes?q=naruto&maxResults=10";
+    $json = file_get_contents($data);
+    $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+    $json_decode = json_decode($json,true);
+    
+    $posts = $json_decode['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+    // var_dump($posts);
+
+
     $message = 'This is your article ' . $id;
     $article = Article::find($id);
     $user = \Auth::user();
@@ -75,7 +84,7 @@ class ArticleController extends Controller
     } else {
        $login_user_id ='';
     }
-    return view('show', ['message' => $message, 'article' => $article, 'login_user_id' =>$login_user_id]);
+    return view('show', ['message' => $message, 'article' => $article, 'login_user_id' =>$login_user_id, 'posts' =>$posts]);
 }
 
     /**
@@ -119,5 +128,28 @@ class ArticleController extends Controller
         $article = Article::find($id);
         $article ->delete();
         return redirect('/articles');
+    }
+
+    public function image(Request $request, $id, Article $article)
+    {
+        $article = Article::find($id);
+        $article ->delete();
+        return redirect('/articles');
+    }
+
+    public function getCover()
+    {
+        $data = "https://www.googleapis.com/books/v1/volumes?q=naruto&maxResults=10";
+        $json = file_get_contents($data);
+        $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+        $json_decods = json_decode($json,true);
+        
+        $posts = $json_decods['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+
+        // $posts = $json_decods['items']->map(function($json_decode){
+        //   return $json_decode['volumeInfo']['imageLinks']['thumbnail'];
+        // });
+
+        return view('getCover', ['posts' =>$posts]);
     }
 }
