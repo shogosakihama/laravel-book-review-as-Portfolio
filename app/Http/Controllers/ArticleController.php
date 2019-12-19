@@ -35,10 +35,12 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $posts = $request->url;
+  
         $message = 'New article';
-        return view('new',['message' =>$message,]);
+        return view('new',['message' =>$message, 'posts' =>$posts]);
     }
 
     /**
@@ -67,13 +69,14 @@ class ArticleController extends Controller
      */
     public function show(Request $request, $id, Article $article)
 {
-    $data = "https://www.googleapis.com/books/v1/volumes?q=naruto&maxResults=10";
-    $json = file_get_contents($data);
-    $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-    $json_decode = json_decode($json,true);
+    // $data = "https://www.googleapis.com/books/v1/volumes?q=naruto&maxResults=10";
+    // $json = file_get_contents($data);
+    // $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+    // $json_decode = json_decode($json,true);
     
-    $posts = $json_decode['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+    // $posts = $json_decode['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
     // var_dump($posts);
+    $posts = $request->url;
 
 
     $message = 'This is your article ' . $id;
@@ -139,17 +142,39 @@ class ArticleController extends Controller
 
     public function getCover()
     {
-        $data = "https://www.googleapis.com/books/v1/volumes?q=naruto&maxResults=10";
+        $data = "https://www.googleapis.com/books/v1/volumes?q=進撃の巨人1&maxResults=40";
         $json = file_get_contents($data);
         $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-        $json_decods = json_decode($json,true);
+        $json_decode = json_decode($json,true);
+        // $json_decods = new collection();
         
-        $posts = $json_decods['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+        // $posts = $json_decods['items'];
+        // var_dump($posts);
+        // $posts = $json_decods['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+        // $posts2 = $json_decods['items'][1]['volumeInfo']['imageLinks']['thumbnail'];
 
         // $posts = $json_decods['items']->map(function($json_decode){
         //   return $json_decode['volumeInfo']['imageLinks']['thumbnail'];
         // });
 
-        return view('getCover', ['posts' =>$posts]);
+        return view('getCover', ['json_decode' =>$json_decode]);
+    }
+
+    public function searchCover(Request $request)
+    {
+        // $data = "https://www.googleapis.com/books/v1/volumes?q={$request}&maxResults=10";
+        // $json = file_get_contents($data);
+        // $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+        // $json_decods = json_decode($json,true);
+        
+        // $posts = $json_decods['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
+
+        // $posts = $json_decods['items']->map(function($json_decode){
+        //   return $json_decode['volumeInfo']['imageLinks']['thumbnail'];
+        // });
+        $posts = $request->input('url');
+
+
+        return redirect()->route('article.new', ['posts' =>$posts]);
     }
 }

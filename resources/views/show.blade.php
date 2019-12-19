@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-        <h1>paiza bbs</h1>
+        <h1>review</h1>
         <p>{{ $message }}</p>
         <img style= width:300px;float:left src= {{ $posts }} >
         <p style=float:left>{{ $article->content }}</p>
