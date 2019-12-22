@@ -37,7 +37,7 @@ class ArticleController extends Controller
      */
     public function create(Request $request)
     {
-        $posts = $request->url;
+        $posts = "http://books.google.com/books/content?id=JuF6Bx_BBxYC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;edge=curl&amp;source=gbs_api";
   
         $message = 'New article';
         return view('new',['message' =>$message, 'posts' =>$posts]);
@@ -140,12 +140,21 @@ class ArticleController extends Controller
         return redirect('/articles');
     }
 
-    public function getCover()
+    public function getCover(Request $request)
     {
-        $data = "https://www.googleapis.com/books/v1/volumes?q=進撃の巨人1&maxResults=40";
-        $json = file_get_contents($data);
-        $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-        $json_decode = json_decode($json,true);
+        
+
+        if($request->filled('content')){
+          $content= $request->content;
+          $data = "https://www.googleapis.com/books/v1/volumes?q={$content}&maxResults=10";
+          $json = file_get_contents($data);
+          $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+          $json_decode = json_decode($json,true);
+        }else {
+          $json_decode = [];
+        }
+
+        
         // $json_decods = new collection();
         
         // $posts = $json_decods['items'];
@@ -172,7 +181,7 @@ class ArticleController extends Controller
         // $posts = $json_decods['items']->map(function($json_decode){
         //   return $json_decode['volumeInfo']['imageLinks']['thumbnail'];
         // });
-        $posts = $request->input('url');
+        $posts = "http://books.google.com/books/content?id=86GetY0qpd4C&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;edge=curl&amp;source=gbs_api";
 
 
         return redirect()->route('article.new', ['posts' =>$posts]);
