@@ -3,7 +3,13 @@
 @section('content')
    <h1>paiza bbs</h1>
    <p>{{$message}}</p>
-   <img src="http://books.google.com/books/content?id=JuF6Bx_BBxYC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;edge=curl&amp;source=gbs_api" >
+   <!-- @if(isset($posts))
+   <img src={{$posts}}>
+   @else
+   <h2>sorry! no image</h2>
+   @endif -->
+
+
    {{ Form::open(['route' =>'article.store'])}}
       <div class = 'form-group'>
           {{ Form::label('content','Content:')}}

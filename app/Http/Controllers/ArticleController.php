@@ -20,10 +20,10 @@ class ArticleController extends Controller
     {
         if ($request->filled('keyword')) {
             $keyword = $request->input('keyword');
-            $message = 'Welcome my BBS: ' . $keyword;
-            $articles = Article::where('content', 'like', '%' . $keyword . '%')->get();
+            $message = 'Welcome my application: ' . $keyword;
+            $articles = Article::where('titile', 'like', '%' . $keyword . '%')->get();
         } else {
-            $message = 'Welcome my BBS';
+            $message = 'Welcome my application';
             $articles = Article::all();
         }
 
@@ -37,10 +37,11 @@ class ArticleController extends Controller
      */
     public function create(Request $request)
     {
-        $posts = "http://books.google.com/books/content?id=JuF6Bx_BBxYC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;edge=curl&amp;source=gbs_api";
+        // $posts = "http://books.google.com/books/content?id=JuF6Bx_BBxYC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;edge=curl&amp;source=gbs_api";
   
         $message = 'New article';
-        return view('new',['message' =>$message, 'posts' =>$posts]);
+
+        return view('new',['message' =>$message]);
     }
 
     /**
@@ -78,8 +79,8 @@ class ArticleController extends Controller
     // var_dump($posts);
     $posts = $request->url;
 
-
-    $message = 'This is your article ' . $id;
+    // $message = 'This is your article ' . $id;
+    $message = 'This is your article ';
     $article = Article::find($id);
     $user = \Auth::user();
     if($user) {
@@ -113,11 +114,20 @@ class ArticleController extends Controller
     public function update(Request $request, $id, Article $article)
     {
       $article = Article::find($id);
-
+      $article->titile = $request->titile;
       $article->content = $request->content;
       $article->user_name = $request->user_name;
       $article->save();
       return redirect()->route('article.show',['id'=>$article->id]);
+
+      // if($request->titile != [] ||
+      // $request->content != [] ||
+      // $request->user_name != []){
+      //   $article->save();
+      //   return redirect()->route('article.show',['id'=>$article->id]);
+      // }else{
+      //   return redirect()->route('article.edit');      
+      // }
     }
 
     /**
@@ -171,7 +181,42 @@ class ArticleController extends Controller
 
     public function searchCover(Request $request)
     {
-        // $data = "https://www.googleapis.com/books/v1/volumes?q={$request}&maxResults=10";
+        // $posts = $request->input('url');
+        // $ppp = "ppp";
+
+      $article = new Article();
+      $user = \Auth::user();
+
+
+      $article->image_url = $request->url;
+      $article->titile = "";
+      $article->content = "";
+      $article->user_name = $user->name;
+      $article->user_id = $user->id;
+      $article->save();
+        return redirect()->route('article.edit', ['id'=>$article->id,'article->user_name' =>$article->user_name]);
+    }
+
+    public function test()
+    {
+        
+          $data = "https://www.googleapis.com/books/v1/volumes?q=鬼滅の刃&maxResults=10";
+          $json = file_get_contents($data);
+          // $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+          // $json_decode = json_decode($json,true);
+
+          var_dump($json);
+        return view('test');
+    }
+}
+
+
+
+
+
+
+
+// $data = "https://www.googleapis.com/books/v1/volumes?q={$request}&maxResults=10";
         // $json = file_get_contents($data);
         // $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
         // $json_decods = json_decode($json,true);
@@ -181,9 +226,3 @@ class ArticleController extends Controller
         // $posts = $json_decods['items']->map(function($json_decode){
         //   return $json_decode['volumeInfo']['imageLinks']['thumbnail'];
         // });
-        $posts = "http://books.google.com/books/content?id=86GetY0qpd4C&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;edge=curl&amp;source=gbs_api";
-
-
-        return redirect()->route('article.new', ['posts' =>$posts]);
-    }
-}
