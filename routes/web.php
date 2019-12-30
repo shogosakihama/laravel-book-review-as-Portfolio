@@ -24,8 +24,8 @@ Route::post('/article', 'ArticleController@store')->name('article.store');
 Route::get('/article/edit/{id}', 'ArticleController@edit')->name('article.edit');
 Route::post('/article/update/{id}', 'ArticleController@update')->name('article.update');
 
-Route::get('/article/getCover','ArticleController@getCover')->name('article.getCover');
-Route::post('/article/getCover','ArticleController@getCover');
+Route::get('/article/getCover','PostController@getCover')->name('article.getCover');
+Route::post('/article/getCover','PostController@getCover');
 
 Route::get('/article/test','ArticleController@test');
 

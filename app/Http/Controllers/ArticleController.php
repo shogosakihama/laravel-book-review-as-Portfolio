@@ -99,9 +99,9 @@ class ArticleController extends Controller
      */
     public function edit(Request $request, $id, Article $article)
     {
-      $message = 'Edit your article ' . $id;
+      // $message = 'Edit your article ';
       $article = Article::find($id);
-      return view('edit', ['message' => $message, 'article' => $article]);
+      return view('edit', ['article' => $article]);
     }
 
     /**
@@ -113,12 +113,18 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id, Article $article)
     {
+      if($request->content != ""){
       $article = Article::find($id);
       $article->titile = $request->titile;
       $article->content = $request->content;
       $article->user_name = $request->user_name;
       $article->save();
       return redirect()->route('article.show',['id'=>$article->id]);
+    }else{
+      session()->flash('flash_message', '空欄を埋めてください');
+      return redirect()->back();
+    }
+
 
       // if($request->titile != [] ||
       // $request->content != [] ||
@@ -150,34 +156,22 @@ class ArticleController extends Controller
         return redirect('/articles');
     }
 
-    public function getCover(Request $request)
-    {
+    // public function getCover(Request $request)
+    // {
         
 
-        if($request->filled('content')){
-          $content= $request->content;
-          $data = "https://www.googleapis.com/books/v1/volumes?q={$content}&maxResults=10";
-          $json = file_get_contents($data);
-          $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-          $json_decode = json_decode($json,true);
-        }else {
-          $json_decode = [];
-        }
+    //     if($request->filled('content')){
+    //       $content= $request->content;
+    //       $data = "https://www.googleapis.com/books/v1/volumes?q={$content}&maxResults=10";
+    //       $json = file_get_contents($data);
+    //       $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
+    //       $json_decode = json_decode($json,true);
+    //     }else {
+    //       $json_decode = [];
+    //     }
 
-        
-        // $json_decods = new collection();
-        
-        // $posts = $json_decods['items'];
-        // var_dump($posts);
-        // $posts = $json_decods['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
-        // $posts2 = $json_decods['items'][1]['volumeInfo']['imageLinks']['thumbnail'];
-
-        // $posts = $json_decods['items']->map(function($json_decode){
-        //   return $json_decode['volumeInfo']['imageLinks']['thumbnail'];
-        // });
-
-        return view('getCover', ['json_decode' =>$json_decode]);
-    }
+    //     return view('getCover', ['json_decode' =>$json_decode]);
+    // }
 
     public function searchCover(Request $request)
     {
