@@ -39,9 +39,10 @@ class ArticleController extends Controller
     {
         // $posts = "http://books.google.com/books/content?id=JuF6Bx_BBxYC&amp;printsec=frontcover&amp;img=1&amp;zoom=1&amp;edge=curl&amp;source=gbs_api";
   
+        $posts = $request->url;
         $message = 'New article';
 
-        return view('new',['message' =>$message]);
+        return view('new',['message' =>$message, 'posts' =>$posts]);
     }
 
     /**
@@ -50,11 +51,13 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Article $article)
     {
       $article = new Article();
       $user = \Auth::user();
 
+      $article->image_url = $request->url;
+      $article->titile = $request->titile;
       $article->content = $request->content;
       $article->user_name = $request->user_name;
       $article->user_id = $user->id;
@@ -70,13 +73,6 @@ class ArticleController extends Controller
      */
     public function show(Request $request, $id, Article $article)
 {
-    // $data = "https://www.googleapis.com/books/v1/volumes?q=naruto&maxResults=10";
-    // $json = file_get_contents($data);
-    // $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
-    // $json_decode = json_decode($json,true);
-    
-    // $posts = $json_decode['items'][0]['volumeInfo']['imageLinks']['thumbnail'];
-    // var_dump($posts);
     $posts = $request->url;
 
     // $message = 'This is your article ' . $id;
@@ -115,6 +111,7 @@ class ArticleController extends Controller
     {
       if($request->content != ""){
       $article = Article::find($id);
+      $article->image_url = $request->url;
       $article->titile = $request->titile;
       $article->content = $request->content;
       $article->user_name = $request->user_name;
