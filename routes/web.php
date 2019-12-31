@@ -34,7 +34,15 @@ Route::get('/article/{id}','ArticleController@show')->name('article.show');
 Route::delete('/article/{id}','ArticleController@destroy')->name('article.delete');
 
 
-
 Auth::routes();
+
+
+// ログインURL
+Route::get('auth/twitter', 'TwitterController@redirectToProvider');
+// コールバックURL
+Route::get('auth/twitter/callback', 'Auth\TwitterController@handleProviderCallback');
+// ログアウトURL
+Route::get('auth/twitter/logout', 'Auth\TwitterController@logout');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
