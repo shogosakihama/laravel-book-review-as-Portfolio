@@ -29,9 +29,17 @@ Route::post('/article/getCover','PostController@getCover');
 
 Route::get('/article/test','ArticleController@test');
 
+Route::post('/article/{id}/likes','LikeController@store')->name('likes.like');
+// Route::group(['middleware'=>'auth'],function(){
+//   Route::group(['prefix'=>'article/{id}'],function(){
+//       Route::post('likes','LikeController@store')->name('likes.like');
+//       Route::post('likes','LikeController@destroy')->name('likes.unlike');
+//   });
+// });
 
 Route::get('/article/{id}','ArticleController@show')->name('article.show');
 Route::delete('/article/{id}','ArticleController@destroy')->name('article.delete');
+
 
 
 Auth::routes();

@@ -10,4 +10,9 @@ class Article extends Model
     {
       return $this->belongsTO('App\User');
     }
+
+    public function like_users()
+    {
+      return $this->belongsToMany(User::class,'likes','article_id','user_id')->withTimestamps();
+    }
 }

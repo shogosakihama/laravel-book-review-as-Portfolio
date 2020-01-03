@@ -84,7 +84,7 @@ class ArticleController extends Controller
     } else {
        $login_user_id ='';
     }
-    return view('show', ['message' => $message, 'article' => $article, 'login_user_id' =>$login_user_id, 'posts' =>$posts]);
+    return view('show', ['message' => $message, 'article' => $article, 'login_user_id' =>$login_user_id, 'posts' =>$posts,'user' =>$user]);
 }
 
     /**
