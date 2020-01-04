@@ -13,9 +13,35 @@
         </div>
         <p></p>
         <div>
-        {{ Form::open(['method' => 'posts', 'route' => ['likes.like', $article->id]]) }}
-               {{ Form::submit('いいね',['class'=>'btn btn-outline-secondary']) }}
-           {{ Form::close() }}
+        @unless(Auth::user())
+            {{ Form::open(['method' => 'post', 'route' => ['likes.showFlash', $article->id]]) }}
+              {{ Form::submit('いいね',['class'=>'btn btn-outline-secondary']) }} {{ $count_like_users }}
+            {{ Form::close() }}
+
+          @if(session('flash_message'))
+          <P>{{ session('flash_message')}}</p>
+          @endif
+
+        @else
+              @auth
+                    @if(Auth::user()->is_like($article->id))
+
+                      {{ Form::open(['method' => 'delete', 'route' => ['likes.unlike', $article->id]]) }}
+                          {{ Form::submit('いいねを外す',['class'=>'btn btn-outline-secondary']) }}
+                          {{ $count_like_users }}
+                      {{ Form::close() }}
+
+                    @else
+
+                    {{ Form::open(['method' => 'posts', 'route' => ['likes.like', $article->id]]) }}
+                          {{ Form::submit('いいね',['class'=>'btn btn-outline-secondary']) }}
+                          {{ $count_like_users }}
+                      {{ Form::close() }}
+
+                    @endif
+
+              @endauth
+        @endif
         </div>
         <p>
             <a href={{ route('article.list') }} class='btn btn-outline-primary'>一覧に戻る</a>
@@ -34,21 +60,3 @@
 @endsection
 
 
-
-
-
-<!-- @if (Auth::id() != $user->id)
-         
-         @if (Auth::user()->is_like($article->id))
-
-             {!! Form::open(['route' =>['likes.unlike',$article->id],'method'=>delete]) !!}
-                 {!! Form::submit('いいねを外す',['class'=>"button btn btn-warning"]) !!}
-             {!! Form::close() !!}
-         @else
-             {!! Form::open(['route'=>['likes.like',$article->id]]) !!}
-                 {!! Form::submit('いいねをつける',['class'=>"button btn btn-success"]) !!}
-             {!! Form::close() !!}
-
-         @endif
-
-     @endif -->

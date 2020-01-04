@@ -30,6 +30,8 @@ Route::post('/article/getCover','PostController@getCover');
 Route::get('/article/test','ArticleController@test');
 
 Route::post('/article/{id}/likes','LikeController@store')->name('likes.like');
+Route::delete('/article/{id}/unlikes','LikeController@destroy')->name('likes.unlike');
+Route::post('/article/{id}/showFlash','LikeController@showFlash')->name('likes.showFlash');
 // Route::group(['middleware'=>'auth'],function(){
 //   Route::group(['prefix'=>'article/{id}'],function(){
 //       Route::post('likes','LikeController@store')->name('likes.like');

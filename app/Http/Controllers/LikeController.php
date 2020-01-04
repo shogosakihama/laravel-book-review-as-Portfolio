@@ -19,11 +19,18 @@ class LikeController extends Controller
       $like->user_id = $user->id;
       $like->article_id = $article->id;
       $like->save();
-      return redirect()->route('article.show',['user_id'=>$like->user_id,'like_id'=>$like->article_id]);
+      return back();
     }
 
     public function destroy($id)
     {
-      
+      \Auth::user()->unlike($id);
+      return back();
+    }
+
+    public function showFlash($id)
+    {
+      session()->flash('flash_message','ログインしてください');
+      return back();
     }
 }
