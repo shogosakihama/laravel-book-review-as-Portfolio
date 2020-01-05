@@ -12,8 +12,7 @@ class PostController extends Controller
   {
     if($request->content){
       $content = $request->content;
-      $data = "https://www.googleapis.com/books/v1/volumes?q=" . $content . "&maxResults=10";
-      $data = htmlspecialchars($data);
+      $data = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($content) . "&maxResults=10";
       $method = "GET";
     
       $client = new \GuzzleHttp\Client();

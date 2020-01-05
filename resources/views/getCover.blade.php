@@ -18,10 +18,10 @@
 
     @if ($json_decode)
       @foreach ($json_decode['items'] as $item)
-      <form style="height:200px;width:200px;float:left" action="{{action('ArticleController@searchCover')}}" method="get">
-          <input type="hidden" value="{{ $item['volumeInfo']['imageLinks']['thumbnail'] }}" name="url">
-          <button type="submit"><img src = "{{ $item['volumeInfo']['imageLinks']['thumbnail'] }}" ></button>
-      </form>
+          <form style="height:200px;width:200px;float:left" action="{{action('ArticleController@searchCover')}}" method="get">
+              <input type="hidden" value="{{ $item['volumeInfo']['imageLinks']['thumbnail'] }}" name="url">
+              <button type="submit"><img src = "{{ $item['volumeInfo']['imageLinks']['thumbnail'] }}" ></button>
+          </form>
       @endforeach
     @endif
     

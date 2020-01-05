@@ -1,0 +1,22 @@
+//PostCOntroller.php
+      foreach ($json_decode['items'] as $item){
+      echo $item['volumeInfo']['imageLinks']['thumbnail'];
+      }
+  
+      return view('getCover', ['item' =>$item]);
+    }else{
+      $item = "";
+      return view('getCover', ['item' =>$item]);
+    }
+
+
+//getCover.blade.php
+     @if ($jitem)
+      
+          <form style="height:200px;width:200px;float:left" action="{{action('ArticleController@searchCover')}}" method="get">
+              <input type="hidden" value="{{ $item }}" name="url">
+              <button type="submit"><img src = "{{ $item }}" ></button>
+          </form>
+           
+    @endif
+    
