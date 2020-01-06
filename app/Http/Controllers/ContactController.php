@@ -26,6 +26,6 @@ class ContactController extends Controller
 
       $request->session()->regenerateToken();
       \Mail::to('goshalways@gmail.com')->send(new Contact($contact));
-        return view('contact.thanks');
+        return view('/thanks');
     }
 }
