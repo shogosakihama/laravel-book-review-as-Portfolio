@@ -13,6 +13,6 @@ class Article extends Model
 
     public function like_users()
     {
-      return $this->belongsToMany(User::class,'likes','article_id','user_id')->withTimestamps();
+      return $this->belongsToMany(User::class,'likes2','article_id','user_id')->withTimestamps();
     }
 }

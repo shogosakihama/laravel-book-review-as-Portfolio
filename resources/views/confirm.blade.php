@@ -17,6 +17,9 @@
       <td class="table-secondary">件名</td>
       <td>{{ $subject }}</td>
       </tr>
+      <td class="table-secondary">メッセージ</td>
+      <td>{!! nl2br(e($message)) !!}</td>
+      </tr>
       </table>
       <form action="sent" method="post">
           <input type="hidden" name="email" class="form-control" id="InputEmail" value="{{ $email }}">

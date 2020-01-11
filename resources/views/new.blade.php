@@ -1,7 +1,7 @@
 @extends('layout')
 
 @section('content')
-   <h1>paiza bbs</h1>
+   <h1>edit review</h1>
    <p>{{$message}}</p>
    @if(isset($posts))
    <img src={{$posts}}>
@@ -34,4 +34,10 @@
           <a href={{ route('article.list') }}>一覧に戻る</a>
       </div>
       {{ Form::close() }}
+      @if (session('flash_message'))
+            <div class="flash_message">
+                {{ session('flash_message') }}
+            </div>
+      @endif
+      
 @endsection

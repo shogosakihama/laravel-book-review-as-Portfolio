@@ -39,7 +39,7 @@ class User extends Authenticatable
 
     public function likes()
     {
-        return $this->belongsToMany(Article::class,'likes','user_id','article_id')->withTimestamps();
+        return $this->belongsToMany(Article::class,'likes2','user_id','article_id')->withTimestamps();
     }
 
     public function like($articleId)

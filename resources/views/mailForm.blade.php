@@ -1,13 +1,13 @@
 @extends('layout')
 
 @section('content')
-<div class="row">
+<div>
    <h1>お問合せ</h1>
 </div>
-<div class="row">
+<div>
     <form action="contact/confirm" method="post">
 </div>
-<div class="row">
+<div>
     <form action="contact/confirm" method="post">
     <div class="form-group">
         <label for="InputEmail">メールアドレス</label>
