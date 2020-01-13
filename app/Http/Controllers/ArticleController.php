@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Article;
 use App\Like;
+use App\User;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -116,7 +117,6 @@ class ArticleController extends Controller
      */
     public function edit(Request $request, $id, Article $article)
     {
-      // $message = 'Edit your article ';
       $article = Article::find($id);
       return view('edit', ['article' => $article]);
     }
@@ -133,6 +133,13 @@ class ArticleController extends Controller
     {
         $article = Article::find($id);
         $article ->delete();
+        return redirect('/articles');
+    }
+
+    public function accountDestroy(Request $request)
+    {
+        $user = \Auth::user();
+        $user ->delete();
         return redirect('/articles');
     }
 

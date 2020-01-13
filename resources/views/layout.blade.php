@@ -50,6 +50,9 @@
                         <a class="dropdown-item" href="/mailForm">
                             お問合わせ
                         </a>
+                        <a class="dropdown-item" href="/accountDestroy">
+                            退会する
+                        </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
