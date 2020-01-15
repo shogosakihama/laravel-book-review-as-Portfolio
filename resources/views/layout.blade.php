@@ -47,9 +47,9 @@
                                             document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
-                        <a class="dropdown-item" href="/mailForm">
+                        <!-- <a class="dropdown-item" href="/mailForm">
                             お問合わせ
-                        </a>
+                        </a> -->
                         <a class="dropdown-item" href="/accountDestroy">
                             退会する
                         </a>

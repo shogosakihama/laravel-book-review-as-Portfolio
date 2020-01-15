@@ -60,22 +60,21 @@ class ArticleController extends Controller
      */
     public function store(Request $request, Article $article)
     {
+        if($request->content != ""  && $request->titile !=""){
+          $article = new Article();
+          $user = \Auth::user();
 
-      if($request->content != ""  && $request->titile !=""){
-      $article = new Article();
-      $user = \Auth::user();
-
-      $article->image_url = $request->url;
-      $article->titile = $request->titile;
-      $article->content = $request->content;
-      $article->user_name = $request->user_name;
-      $article->user_id = $user->id;
-      $article->save();
-      return redirect()->route('article.show',['id'=>$article->id]);
-    }else{
-      session()->flash('flash_message', '空欄を埋めてください');
-      return redirect()->back();
-    }
+          $article->image_url = $request->url;
+          $article->titile = $request->titile;
+          $article->content = $request->content;
+          $article->user_name = $request->user_name;
+          $article->user_id = $user->id;
+          $article->save();
+          return redirect()->route('article.show',['id'=>$article->id]);
+        }else{
+          session()->flash('flash_message', '空欄を埋めてください');
+          return redirect()->back();
+      }
     }
 
     /**

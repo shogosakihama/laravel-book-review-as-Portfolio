@@ -53,7 +53,7 @@
                         
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                            <a href="/auth/twitter"><img src="./public/images/a.png">Twitterアカウントでログイン</a>
+                            <!-- <a href="/auth/twitter"><img src="./public/images/a.png">Twitterアカウントでログイン</a> -->
                             <p></p>
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}

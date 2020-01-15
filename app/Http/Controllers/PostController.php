@@ -10,8 +10,8 @@ class PostController extends Controller
 {
   public function getCover(Request $request)
   {
-    if($request->content){
-      $content = $request->content;
+    if($request->bookName){
+      $content = $request->bookName;
       $data = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($content) . "&maxResults=5";
       $method = "GET";
     

@@ -9,7 +9,6 @@
    <h2>sorry! no image</h2>
    @endif
 
-
    {{ Form::open(['route' =>'article.store'])}}
    <div class = 'form-group'>
           {{ Form::hidden('url',$posts)}}
