@@ -22,6 +22,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 //退会する
 Route::get('/accountDestroy', 'ArticleController@accountDestroy')->name('accountDestroy');
 
+//投稿したレビューを再び編集する
+Route::get('/article/edit/{id}', 'ArticleController@edit')->name('article.edit');
+
 //書籍名を検索する
 Route::post('/article/getCover','PostController@getCover')->name('article.getCover');
 //選択した画像を編集画面にgetで送る。
@@ -32,8 +35,7 @@ Route::post('/article', 'ArticleController@store')->name('article.store');
 Route::get('/article/{id}','ArticleController@show')->name('article.show');
 //レビューを削除する
 Route::delete('/article/{id}','ArticleController@destroy')->name('article.delete');
-//投稿したレビューを再び編集する
-Route::get('/article/edit/{id}', 'ArticleController@edit')->name('article.edit');
+
 //必要無さそうだが、消すと何故かshowの方でエラーが出る。放置しても機能に影響無いが、気になる。
 Route::get('/article/getCover','PostController@getCover');
 
