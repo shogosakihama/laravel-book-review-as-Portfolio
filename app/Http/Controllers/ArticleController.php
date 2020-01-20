@@ -156,7 +156,7 @@ class ArticleController extends Controller
 
         if($request->filled('content')){
           $content= $request->content;
-          $data = "https://www.googleapis.com/books/v1/volumes?q={$content}&maxResults=10";
+          $data = "https://www.googleapis.com/books/v1/volumes?q=" .urlencode($content) ."&maxResults=10";
           $json = file_get_contents($data);
           $json = mb_convert_encoding($json, 'UTF8', 'ASCII,JIS,UTF-8,EUC-JP,SJIS-WIN');
           $json_decode = json_decode($json,true);

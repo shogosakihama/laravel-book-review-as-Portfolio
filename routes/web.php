@@ -33,6 +33,15 @@ Route::get('/article/test','ArticleController@test');
 Route::get('/article/{id}','ArticleController@show')->name('article.show');
 Route::delete('/article/{id}','ArticleController@destroy')->name('article.delete');
 
+///お問合わせ(メール送信)
+
+//お問い合わせフォーム
+Route::get('/mailForm','ContactController@index')->name('contact');
+//送信内容の確認
+Route::post('/contact/confirm','ContactController@confirm')->name('confirm');
+//送信完了報告
+Route::post('/contact/sent','ContactController@sent')->name('sent');
+
 
 
 Auth::routes();
