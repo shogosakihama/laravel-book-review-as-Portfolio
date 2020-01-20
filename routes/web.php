@@ -42,6 +42,16 @@ Route::post('/contact/confirm','ContactController@confirm')->name('confirm');
 //送信完了報告
 Route::post('/contact/sent','ContactController@sent')->name('sent');
 
+///TwitterOAuth
+
+// ログインURL
+Route::get('auth/twitter', 'TwitterController@redirectToProvider');
+// コールバックURL
+Route::get('auth/twitter/callback', 'Auth\TwitterController@handleProviderCallback');
+// ログアウトURL
+Route::get('auth/twitter/logout', 'Auth\TwitterController@logout');
+
+
 
 
 Auth::routes();
