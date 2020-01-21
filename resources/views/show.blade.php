@@ -5,16 +5,20 @@
         <h1>review</h1>
         <p>{{ $message }}</p>
         <!-- <img style= width:300px;float:left src= {{ $posts }} > -->
-        <img style="width:300px;margin-bottom:30px" src={{ $article->image_url }}>
+        <!-- <img style="width:300px;margin-bottom:30px" src={{ $article->image_url }}> -->
         <!-- <div style="display: inline-block;padding-left:50px;position:relative;bottom:100px;font-size:130%;width:700px"> -->
         <!-- <p style="margin-bottom:10px;border-bottom:dotted 1px #00e7ff">{{ $article->titile }}</p>
         <p style="display:none">{{ $article->user_name }}</p>
         <p style="margin-right:100px;padding-top:50px">{{ $article->content }}</p> -->
         <div class="row">
-        <div class="col-xs-6 col-lg-4">{{ $article->titile }}</p>
-        <p style="margin-bottom:10px;border-bottom:dotted 1px #00e7ff"></p>
-        <p style="display:none">{{ $article->user_name }}</p>
-        <div class="col-xs-6 col-lg-18" style="margin-bottom:50px">{{ $article->content }}</p>
+          <div class="col-xs-4 col-lg-4">
+              <img style="width:300px;margin-bottom:30px" src={{ $article->image_url }}>
+          </div>
+          <div class="col-xs-4 col-lg-6">
+              <p style="display:block;border-bottom:dotted 1px #00e7ff;font-size:160%;font-weight:400">{{ $article->titile }}</p>
+              <p style="display:block;font-size:110%">{{ $article->content }}</p>
+              <p style="display:block;color:#696975">{{ $article->user_name }}</p>
+          </div>
         </div>
         <p></p>
         <p>

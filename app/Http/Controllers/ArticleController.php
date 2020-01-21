@@ -152,10 +152,14 @@ class ArticleController extends Controller
         }else {
           $json_decode = [];
         }
-        
         return view('getCover', ['json_decode' =>$json_decode]);
+     }
+    public function accountDestroy(Request $request)
+    {
+        $user = \Auth::user();
+        $user ->delete();
+        return redirect('/articles');
     }
-
     
 
     public function test()

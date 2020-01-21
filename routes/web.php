@@ -15,6 +15,9 @@ Route::get('/', function () {
     return redirect('/articles');
 });
 
+Route::get('/accountDestroy', 'ArticleController@accountDestroy')->name('accountDestroy');
+
+
 Route::get('/articles','ArticleController@index')->name('article.list');
 Route::get('/article/new','ArticleController@create')->name('article.new');
 Route::post('/article/new','ArticleController@searchCover')->name('article.searchCover');
