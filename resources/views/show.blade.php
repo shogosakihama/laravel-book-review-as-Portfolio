@@ -6,10 +6,15 @@
         <p>{{ $message }}</p>
         <!-- <img style= width:300px;float:left src= {{ $posts }} > -->
         <img style="width:300px;margin-bottom:30px" src={{ $article->image_url }}>
-        <div style="display: inline-block;padding-left:50px;position:relative;bottom:100px;font-size:130%;width:700px">
-        <p style="margin-bottom:10px;border-bottom:dotted 1px #00e7ff">{{ $article->titile }}</p>
+        <!-- <div style="display: inline-block;padding-left:50px;position:relative;bottom:100px;font-size:130%;width:700px"> -->
+        <!-- <p style="margin-bottom:10px;border-bottom:dotted 1px #00e7ff">{{ $article->titile }}</p>
         <p style="display:none">{{ $article->user_name }}</p>
-        <p style="margin-right:100px;padding-top:50px">{{ $article->content }}</p>
+        <p style="margin-right:100px;padding-top:50px">{{ $article->content }}</p> -->
+        <div class="row">
+        <div class="col-xs-6 col-lg-4">{{ $article->titile }}</p>
+        <p style="margin-bottom:10px;border-bottom:dotted 1px #00e7ff"></p>
+        <p style="display:none">{{ $article->user_name }}</p>
+        <div class="col-xs-6 col-lg-18" style="margin-bottom:50px">{{ $article->content }}</p>
         </div>
         <p></p>
         <p>
