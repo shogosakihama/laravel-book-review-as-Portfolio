@@ -24,17 +24,5 @@
       </form>
       @endforeach
     @endif
-    
-
-    <!-- @if ($json_decode)
-    {{ Form::open(['action' =>'ArticleController@searchCover', 'method' =>'post'])}}
-      @foreach ($json_decode['items'] as $item)
-      {{ Form::hidden('url',$item['volumeInfo']['imageLinks']['thumbnail']) }}
-      {{ Form::button($item['volumeInfo']['imageLinks']['thumbnail'], ['type' =>'submit']) }}
-      @endforeach
-    {{ Form::close() }}
-
-    @endif -->
-
 
 @endsection
