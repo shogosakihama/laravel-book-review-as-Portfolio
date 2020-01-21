@@ -1,14 +1,21 @@
 @extends('layout')
 
 @section('content')
-   <h1>paiza bbs</h1>
+   <h1>edit review</h1>
    <p>{{$message}}</p>
    @if(isset($posts))
+<<<<<<< HEAD
    <img style="width:300px;margin-bottom:30px" src={{$posts}}>
    @else
    <h2>sorry! no image</h2>
    @endif
 
+=======
+   <img src={{$posts}}>
+   @else
+   <h2>sorry! no image</h2>
+   @endif
+>>>>>>> origin/master
 
    {{ Form::open(['route' =>'article.store'])}}
    <div class = 'form-group'>
@@ -39,4 +46,8 @@
                 {{ session('flash_message') }}
             </div>
       @endif
+<<<<<<< HEAD
+=======
+      
+>>>>>>> origin/master
 @endsection

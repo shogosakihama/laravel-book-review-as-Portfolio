@@ -1,0 +1,23 @@
+//PostCOntroller.php
+      foreach ($json_decode['items'] as $item){
+      echo $item['volumeInfo']['imageLinks']['thumbnail'];
+      }
+  
+    if('$item['volumeInfo']['imageLinks']['thumbnail']'){
+      return view('getCover', ['item['volumeInfo']['imageLinks']['thumbnail']' =>$item['volumeInfo']['imageLinks']['thumbnail']]);
+    }else{
+      $item = "";
+      return view('getCover', ['item['volumeInfo']['imageLinks']['thumbnail']' =>$item['volumeInfo']['imageLinks']['thumbnail']]);
+    }
+
+
+//getCover.blade.php
+     @if ($item)
+      
+          <form style="height:200px;width:200px;float:left" action="{{action('ArticleController@create')}}" method="get">
+              <input type="hidden" value="{{ $item }}" name="url">
+              <button type="submit"><img src = "{{ $item }}" ></button>
+          </form>
+           
+    @endif
+    

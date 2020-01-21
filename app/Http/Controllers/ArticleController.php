@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Article;
+use App\Like;
+use App\User;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -15,6 +17,8 @@ class ArticleController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * 
+     * トップページ。メソッドは検索機能。
      */
     public function index(Request $request)
     {
@@ -34,6 +38,8 @@ class ArticleController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     * 
+     * 選択したマンガのカバー画像をgetで/newに送る。
      */
     public function create(Request $request)
     {
@@ -48,8 +54,10 @@ class ArticleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
+     * 
+     * 画像と本文を保存し、/article/{id}に飛ぶ。
      */
-    public function store(Request $request)
+    public function store(Request $request, Article $article)
     {
       if($request->content != ""  && $request->titile !=""){
       $article = new Article();
@@ -73,8 +81,10 @@ class ArticleController extends Controller
      *
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
+     * 
+     * 投稿されたレビューが表示される。$count_like_usersは「いいね」を数える。
      */
-    public function show(Request $request, $id, Article $article)
+    public function show(Request $request, $id, Article $article, Like $like)
 {
     $posts = $request->url;
 
@@ -86,18 +96,22 @@ class ArticleController extends Controller
     } else {
        $login_user_id ='';
     }
-    return view('show', ['message' => $message, 'article' => $article, 'login_user_id' =>$login_user_id, 'posts' =>$posts]);
-}
 
+    //count();
+    $count_like_users = $article->like_users()->count();
+
+    return view('show', ['message' => $message, 'article' => $article, 'login_user_id' =>$login_user_id, 'posts' =>$posts,'user' =>$user,'like'=>$like,'count_like_users'=>$count_like_users]);
+}
     /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
+     * 
+     * 投稿されたレビューを再び編集することができる。
      */
     public function edit(Request $request, $id, Article $article)
     {
-      $message = 'Edit your article ' . $id;
       $article = Article::find($id);
       return view('edit', ['message' => $message, 'article' => $article]);
     }
@@ -124,6 +138,8 @@ class ArticleController extends Controller
      *
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
+     * 
+     * 投稿を削除する。
      */
     public function destroy(Request $request, $id, Article $article)
     {
@@ -132,10 +148,10 @@ class ArticleController extends Controller
         return redirect('/articles');
     }
 
-    public function image(Request $request, $id, Article $article)
+    public function accountDestroy(Request $request)
     {
-        $article = Article::find($id);
-        $article ->delete();
+        $user = \Auth::user();
+        $user ->delete();
         return redirect('/articles');
     }
 
@@ -154,17 +170,11 @@ class ArticleController extends Controller
         }
         return view('getCover', ['json_decode' =>$json_decode]);
      }
-    public function accountDestroy(Request $request)
-    {
-        $user = \Auth::user();
-        $user ->delete();
-        return redirect('/articles');
-    }
+    
     
 
     public function test()
     {
-        
           $data = "https://www.googleapis.com/books/v1/volumes?q=鬼滅の刃&maxResults=10";
           $json = file_get_contents($data);
           
