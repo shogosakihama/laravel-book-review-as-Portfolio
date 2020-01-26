@@ -1,3 +1,13 @@
+
+# laravelをgit cloneする際の参考です
+マイグレーションでエラーの場合https://qiita.com/kim_kou/items/11420f1aa885638865fb
+
+## clone後の参考(Laravelインストール済みの場合)
+
+1. `composer update`
+1. `composer install`
+1. `.env`ファイルを作る
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
