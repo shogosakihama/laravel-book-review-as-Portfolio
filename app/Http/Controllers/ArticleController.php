@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+  /**
+   *///コンストラクター
   public function __construct()
   {
       $this->middleware('auth')->except(['index', 'show']);
@@ -15,7 +17,8 @@ class ArticleController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     * 
+     *///初期画面。投稿リストでもある。
     public function index(Request $request)
     {
         if ($request->filled('keyword')) {
@@ -34,7 +37,8 @@ class ArticleController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     * 
+     *///選択した画像を編集画面にgetで送る。
     public function create(Request $request)
     {
         $posts = $request->url;
@@ -48,7 +52,8 @@ class ArticleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+     * 
+     *///新規投稿のレビューをデータベースに保存する。
     public function store(Request $request, Article $article)
     {
 
@@ -74,7 +79,8 @@ class ArticleController extends Controller
      *
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
-     */
+     * 
+     *///投稿したレビューを表示する。
     public function show(Request $request, $id, Article $article)
     {
     
@@ -91,6 +97,7 @@ class ArticleController extends Controller
     return view('show', ['message' => $message, 'article' => $article, 'login_user_id' =>$login_user_id, 'posts' =>$posts]);
     }
 
+    ///退会する
     public function accountDestroy(Request $request)
     {
         $user = \Auth::user();
@@ -102,7 +109,8 @@ class ArticleController extends Controller
      *
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
-     */
+     * 
+     *///投稿したレビューを再び編集する
     public function edit(Request $request, $id, Article $article)
     {
       $message = 'Edit your article ' . $id;
@@ -116,7 +124,8 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
-     */
+     * 
+     *///@editで編集したデータをポストして保存する
     public function update(Request $request, $id, Article $article)
     {
       $article = Article::find($id);
@@ -133,7 +142,8 @@ class ArticleController extends Controller
      *
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
-     */
+     * 
+     *///レビューを削除する
     public function destroy(Request $request, $id, Article $article)
     {
         $article = Article::find($id);
@@ -148,6 +158,7 @@ class ArticleController extends Controller
         return redirect('/articles');
     }
 
+    ///検索ページに飛ぶ
     public function getCover(Request $request)
     {
         
@@ -163,6 +174,7 @@ class ArticleController extends Controller
         return view('getCover', ['json_decode' =>$json_decode]);
     }
 
+    ///テスト
     public function test()
     {
         
