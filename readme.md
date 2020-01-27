@@ -4,6 +4,7 @@
 
 ## clone後の参考(Laravelインストール済みの場合)
 
+1. `composer init`
 1. `composer update`
 1. `composer install`
 1. `.env`ファイルを作る
